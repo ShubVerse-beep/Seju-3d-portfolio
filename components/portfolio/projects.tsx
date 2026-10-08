@@ -6,11 +6,21 @@ import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap"
 import { projects, type Project } from "@/lib/content"
 import { Chip, SectionTag } from "./section-tag"
 
-function ProjectLink({ href, label, icon }: { href: string; label: string; icon: "live" | "repo" }) {
+function ProjectLink({
+  href,
+  label,
+  icon,
+  projectTitle,
+}: {
+  href: string
+  label: string
+  icon: "live" | "repo"
+  projectTitle?: string
+}) {
   const Icon = icon === "live" ? ArrowUpRight : Github
   if (!href) {
     return (
-      <span className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-full border border-dashed border-white/15 px-4 py-2 text-sm text-muted-foreground">
+      <span className="pointer-events-none inline-flex cursor-not-allowed items-center gap-1.5 rounded-full border border-dashed border-white/15 px-4 py-2 text-sm text-muted-foreground">
         {label} · soon
       </span>
     )
@@ -20,10 +30,11 @@ function ProjectLink({ href, label, icon }: { href: string; label: string; icon:
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={icon === "repo" ? `Open ${projectTitle || "project"} repository on GitHub` : `Open ${projectTitle || "project"} live link`}
       className={
         icon === "live"
           ? "inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.04]"
-          : "glass inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium hover:bg-white/10"
+          : "glass inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors hover:bg-white/10"
       }
     >
       {label} <Icon className="size-4" aria-hidden="true" />
@@ -35,13 +46,20 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <article
       data-project-card
-      className="glass relative flex h-full w-[82vw] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] p-7 sm:w-[440px] md:p-9"
+      className="glass group relative flex h-full w-[82vw] shrink-0 cursor-pointer flex-col justify-between overflow-hidden rounded-[2rem] p-7 sm:w-[440px] md:p-9"
     >
+      <a
+        href={project.repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open ${project.title} repository on GitHub`}
+        className="absolute inset-0 z-10 rounded-[2rem] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-20 -top-20 size-60 rounded-full bg-violet-500/20 blur-[80px]"
       />
-      <div className="relative">
+      <div className="relative pointer-events-none">
         <div className="flex items-center justify-between gap-3">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent">{`// project ${project.id}`}</p>
           <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-foreground/80">
@@ -53,14 +71,14 @@ function ProjectCard({ project }: { project: Project }) {
         <p className="mt-5 text-pretty leading-relaxed text-muted-foreground">{project.description}</p>
       </div>
       <div className="relative mt-8">
-        <div className="flex flex-wrap gap-2">
+        <div className="pointer-events-none flex flex-wrap gap-2">
           {project.stack.map((s) => (
             <Chip key={s}>{s}</Chip>
           ))}
         </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <ProjectLink href={project.liveUrl} label="Live" icon="live" />
-          <ProjectLink href={project.repoUrl} label="Code" icon="repo" />
+        <div className="relative z-20 mt-6 flex flex-wrap gap-3">
+          <ProjectLink href={project.liveUrl} label="Live" icon="live" projectTitle={project.title} />
+          <ProjectLink href={project.repoUrl} label="Code" icon="repo" projectTitle={project.title} />
         </div>
       </div>
     </article>
