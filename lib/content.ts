@@ -99,10 +99,10 @@ export const projects: Project[] = [
     id: "01",
     title: "GramHealth",
     year: "2026",
-    status: "Healthcare · AI",
+    status: "Healthcare / AI / Mobile",
     description:
-      "An offline-first rural healthcare platform with multi-role access for patients, doctors, and ASHA workers. Features AI clinical triage, voice consultations, and offline sync.",
-    stack: ["Flutter", "Dart", "Node.js", "Prisma", "AI Triage"],
+      "Offline-first rural healthcare platform combining a Flutter mobile app with LangGraph multi-agent AI clinical reasoning, local SQLite synchronization, multilingual support, and a Node.js REST API.",
+    stack: ["Flutter", "Dart", "LangGraph", "FastAPI", "Node.js", "SQLite"],
     liveUrl: "",
     repoUrl: "https://github.com/Sejal-rai-1608/GramHealthApp",
   },
@@ -110,21 +110,21 @@ export const projects: Project[] = [
     id: "02",
     title: "Eternia",
     year: "2026",
-    status: "Full-Stack Web",
+    status: "Web / Full-Stack",
     description:
-      "An anonymous mental wellness platform for Indian college students compliant with DPDP Act 2023. Features WebRTC teleconsultation, zero-PII auth, and an internal credit economy.",
-    stack: ["React", "TypeScript", "Vite", "Supabase", "WebRTC"],
-    liveUrl: "",
+      "Anonymous mental wellness platform for Indian college students featuring peer support, role-based counselor dashboards, VideoSDK telehealth sessions, Three.js 3D visuals, and Supabase backend services.",
+    stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "Three.js"],
+    liveUrl: "https://eterniaweb.vercel.app",
     repoUrl: "https://github.com/Sejal-rai-1608/Eternia_web",
   },
   {
     id: "03",
     title: "TruthLens AI",
     year: "2026",
-    status: "AI · Web App",
+    status: "AI / Web Application",
     description:
-      "A multi-agent misinformation detection platform that verifies text, images, and videos using automated workflows, Mistral Large, Tavily Search, and Google Fact Check APIs.",
-    stack: ["Next.js", "TypeScript", "n8n", "Mistral", "Tavily"],
+      "Multi-agent misinformation detection platform that verifies text, image, and video claims using n8n workflow automation, Mistral Large, Qwen 3.5, Google Fact Check, and speech transcription.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "n8n", "Mistral AI", "Framer Motion"],
     liveUrl: "",
     repoUrl: "https://github.com/Sejal-rai-1608/truthlens-ai",
   },
@@ -132,10 +132,10 @@ export const projects: Project[] = [
     id: "04",
     title: "Heritage App",
     year: "2026",
-    status: "Mobile App",
+    status: "Mobile Application",
     description:
-      "A bilingual community engagement mobile app (SWAJAN) supporting English and Gujarati. Includes a job vacancy portal with resume uploads, verified promotions, and member directories.",
-    stack: ["Flutter", "Dart", "Provider", "Material 3"],
+      "SWAJAN (સ્વજન) community mobile application built with Flutter connecting culture and networking with real-time English and Gujarati support, member directories, job vacancies, and donations.",
+    stack: ["Flutter", "Dart", "Provider", "Material 3", "REST API", "Localization"],
     liveUrl: "",
     repoUrl: "https://github.com/Sejal-rai-1608/Heritage-App",
   },
@@ -143,21 +143,40 @@ export const projects: Project[] = [
     id: "05",
     title: "Policy Plus",
     year: "2026",
-    status: "Mobile App",
+    status: "Mobile Application",
     description:
-      "A cross-platform insurance policy management and exploration mobile application. Features insurance plan comparison, claim tracking, OTP verification, and visual analytics charts.",
-    stack: ["Flutter", "Dart", "Firebase", "FL Chart"],
+      "Insurance and policy management mobile application developed in Flutter with Firebase authentication, interactive coverage analytics using FL Chart, policy comparison, and claims tracking.",
+    stack: ["Flutter", "Dart", "Firebase", "FL Chart", "REST API", "ScreenUtil"],
     liveUrl: "",
     repoUrl: "https://github.com/Sejal-rai-1608/Policy_Plus",
   },
 ]
 
-export const experience = [
+export type ExperienceItem = {
+  role: string
+  org: string
+  period: string
+  points: string[]
+  badge?: string
+}
+
+export const experience: ExperienceItem[] = [
   {
     role: "App Development Intern",
     org: "Cosmic Web Solutions (Freelance)",
     period: "2026",
     points: ["Flutter apps with API and backend integration", "Real-time projects focused on UI/UX, performance and deployment"],
+  },
+  {
+    role: "1st Place Winner · Micronest",
+    org: "CU Innovation Hackathon",
+    period: "2025",
+    badge: "Achievement",
+    points: [
+      "Awarded 1st place at the CU Innovation Hackathon (2025)",
+      "Developed a financial solution to provide accessible loans for individuals unable to access traditional banking services",
+      "Secured direct entry into the Campus Tank competition, with the opportunity to compete for funding",
+    ],
   },
   {
     role: "AR/VR Intern",

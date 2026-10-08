@@ -6,7 +6,7 @@ export function Journey() {
   return (
     <section id="journey" aria-labelledby="journey-title" className="relative px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <SectionTag>Experience & certifications</SectionTag>
+        <SectionTag>Experience, achievements & certifications</SectionTag>
         <h2 id="journey-title" data-reveal className="mt-4 text-balance text-4xl font-bold tracking-tight md:text-6xl">
           The journey so far
         </h2>
@@ -19,7 +19,14 @@ export function Journey() {
                   aria-hidden="true"
                   className="absolute -left-[5px] top-2 size-2.5 rounded-full bg-accent shadow-[0_0_0_4px_rgba(167,139,250,0.15)]"
                 />
-                <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{item.period}</p>
+                <div className="flex items-center gap-2.5">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">{item.period}</p>
+                  {item.badge && (
+                    <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-amber-300">
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
                 <h3 className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">{item.role}</h3>
                 <p className="text-sm text-accent">{item.org}</p>
                 <ul className="mt-3 space-y-1 text-sm leading-relaxed text-muted-foreground">

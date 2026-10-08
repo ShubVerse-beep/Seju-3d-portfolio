@@ -10,17 +10,17 @@ function ProjectLink({
   href,
   label,
   icon,
-  projectTitle,
+  ariaLabel,
 }: {
   href: string
   label: string
   icon: "live" | "repo"
-  projectTitle?: string
+  ariaLabel?: string
 }) {
   const Icon = icon === "live" ? ArrowUpRight : Github
   if (!href) {
     return (
-      <span className="pointer-events-none inline-flex cursor-not-allowed items-center gap-1.5 rounded-full border border-dashed border-white/15 px-4 py-2 text-sm text-muted-foreground">
+      <span className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-full border border-dashed border-white/15 px-4 py-2 text-sm text-muted-foreground">
         {label} · soon
       </span>
     )
@@ -30,11 +30,11 @@ function ProjectLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={icon === "repo" ? `Open ${projectTitle || "project"} repository on GitHub` : `Open ${projectTitle || "project"} live link`}
+      aria-label={ariaLabel || `${label} link`}
       className={
         icon === "live"
           ? "inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.04]"
-          : "glass inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors hover:bg-white/10"
+          : "glass inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium hover:bg-white/10"
       }
     >
       {label} <Icon className="size-4" aria-hidden="true" />
@@ -46,14 +46,15 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <article
       data-project-card
-      className="glass group relative flex h-full w-[82vw] shrink-0 cursor-pointer flex-col justify-between overflow-hidden rounded-[2rem] p-7 sm:w-[440px] md:p-9"
+      className="glass group relative flex h-full w-[82vw] shrink-0 cursor-pointer flex-col justify-between overflow-hidden rounded-[2rem] p-7 transition-colors hover:border-white/20 sm:w-[440px] md:p-9"
     >
+      {/* Full-card link to GitHub repository */}
       <a
         href={project.repoUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`Open ${project.title} repository on GitHub`}
-        className="absolute inset-0 z-10 rounded-[2rem] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        aria-label={`Open ${project.title} GitHub repository in a new tab`}
+        className="absolute inset-0 z-10 rounded-[2rem]"
       />
       <div
         aria-hidden="true"
@@ -70,15 +71,25 @@ function ProjectCard({ project }: { project: Project }) {
         <p className="mt-1 font-mono text-xs text-muted-foreground">{project.year}</p>
         <p className="mt-5 text-pretty leading-relaxed text-muted-foreground">{project.description}</p>
       </div>
-      <div className="relative mt-8">
-        <div className="pointer-events-none flex flex-wrap gap-2">
+      <div className="relative mt-8 pointer-events-none">
+        <div className="flex flex-wrap gap-2">
           {project.stack.map((s) => (
             <Chip key={s}>{s}</Chip>
           ))}
         </div>
-        <div className="relative z-20 mt-6 flex flex-wrap gap-3">
-          <ProjectLink href={project.liveUrl} label="Live" icon="live" projectTitle={project.title} />
-          <ProjectLink href={project.repoUrl} label="Code" icon="repo" projectTitle={project.title} />
+        <div className="relative z-20 mt-6 flex flex-wrap gap-3 pointer-events-auto">
+          <ProjectLink
+            href={project.liveUrl}
+            label="Live"
+            icon="live"
+            ariaLabel={`Open ${project.title} live preview in a new tab`}
+          />
+          <ProjectLink
+            href={project.repoUrl}
+            label="Code"
+            icon="repo"
+            ariaLabel={`Open ${project.title} source code on GitHub in a new tab`}
+          />
         </div>
       </div>
     </article>
